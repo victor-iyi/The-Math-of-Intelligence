@@ -27,5 +27,5 @@ for d, sample in enumerate(X):
     else:
         plt.scatter(sample[0], sample[1], marker='+', linewidths=5)
 
-plt.plot([-2, 6], [6, 0.5]) # A toy decision boundary
+plt.plot([-2, 6], [6, 0.5])  # A toy decision boundary
 plt.show()
