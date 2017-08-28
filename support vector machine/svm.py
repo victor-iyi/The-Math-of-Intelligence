@@ -7,19 +7,31 @@
 """
 
 import numpy as np
+from matplotlib import pyplot as plt
 
 
 class SVC(object):
     def __init__(self):
-        self.w = 0
+        self.W = 0
 
+    def fit(self, X, y):
+        pass
 
-def fit(self, X, y):
-    pass
+    def predict(self):
+        pass
 
+    def __sgd(self):
+        pass
 
-def predict(self):
-    pass
+    @classmethod
+    def plot(cls, X, line_X, line_y):
+        for i, sample in enumerate(X):
+            if i < 2:
+                plt.scatter(sample[0], sample[1], s=100, c='red', marker='_', linewidths=3)
+            else:
+                plt.scatter(sample[0], sample[1], s=100, c='blue', marker='+', linewidths=3)
+        plt.plot(line_X, line_y, color='k', linewidth=2)
+        plt.show()
 
 
 if __name__ == '__main__':
@@ -36,3 +48,4 @@ if __name__ == '__main__':
 
     svm = SVC()
     svm.fit(X, y)
+    svm.plot(X, [-2, 6], [6, 0.5])
