@@ -81,6 +81,7 @@ if __name__ == '__main__':
     # Labels
     y = np.array([-1, -1, 1, 1, 1])
 
+    # Support Vector Classifier
     clf = SupportVectorMachine()
     clf.fit(X, y, show_metric=True)
     clf.plot(X, show_hyperplane=True)
