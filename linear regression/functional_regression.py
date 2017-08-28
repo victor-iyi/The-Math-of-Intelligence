@@ -1,3 +1,11 @@
+"""
+  @author Victor I. Afolabi
+  A.I. Engineer & Software developer
+  javafolabi@gmail.com
+  Created on 25 August, 2017 @ 8:35 PM.
+  Copyright © 2017. victor. All rights reserved.
+"""
+
 # Linear Regression with gradient descent
 
 import numpy as np

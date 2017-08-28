@@ -3,11 +3,11 @@
   A.I. Engineer & Software developer
   javafolabi@gmail.com
   Created on 26 August, 2017 @ 10:33 PM.
-  Copyright (c) 2017. victor. All rights reserved.
+  Copyright © 2017. victor. All rights reserved.
 """
 
 import numpy as np
-from svm import SupportVectorMachine
+import svm
 
 # Define the data
 # Input [x, y, bias]
@@ -21,6 +21,6 @@ X = np.array([
 # Labels
 y = np.array([-1, -1, 1, 1, 1])
 
-svm = SupportVectorMachine()
-svm.fit(X, y, show_metric=True)
-svm.plot(X, show_hyperplane=True)
+clf = svm.SupportVectorMachine()
+clf.fit(X, y, show_metric=True)
+clf.plot(X, show_hyperplane=True)

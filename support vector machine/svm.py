@@ -3,7 +3,7 @@
   A.I. Engineer & Software developer
   javafolabi@gmail.com
   Created on 26 August, 2017 @ 10:20 PM.
-  Copyright (c) 2017. victor. All rights reserved.
+  Copyright © 2017. victor. All rights reserved.
 """
 
 import numpy as np
@@ -35,6 +35,7 @@ class SupportVectorMachine(object):
                     # Correct classification
                     self.W = self.W + self.learning_rate * regularizer
             errors.append(error)
+        # Show errors reducing over time
         if 'show_metric' in kwargs:
             if kwargs['show_metric']:
                 self.__plot_error(errors)

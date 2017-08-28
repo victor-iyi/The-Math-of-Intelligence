@@ -3,7 +3,7 @@
   A.I. Engineer & Software developer
   javafolabi@gmail.com
   Created on 26 August, 2017 @ 9:33 PM.
-  Copyright (c) 2017. victor. All rights reserved.
+  Copyright © 2017. victor. All rights reserved.
 """
 
 # Create a LinearRegression object
