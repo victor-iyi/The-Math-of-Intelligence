@@ -11,17 +11,33 @@ from matplotlib import pyplot as plt
 
 
 class SVC(object):
-    def __init__(self):
-        self.W = 0
+    def __init__(self, learning_rate=1):
+        self.W = None
+        self.learning_rate = learning_rate
+        self.__lambda = None
 
-    def fit(self, X, y):
-        pass
+    def fit(self, X, y, epochs=10000):
+        self.__lambda = 1 / epochs
+        self.W = np.zeros(len(X[0]))
+        # store misclassified points
+        errors = []
+        print('Training starting...')
+        for epoch in range(1, epochs + 1):
+            error = 0
+            for i, x in enumerate(X):
+                # noinspection PyTypeChecker
+                if (y[i] * np.dot(X[i], self.W)) < 1:
+                    # Misclassified points
+                    self.W = self.W + self.learning_rate * (X[i] * y[i] + (-2 * self.__lambda * self.W))
+                    error = 1
+                else:
+                    # Correct classification
+                    self.W = self.W + self.learning_rate * (-2 * self.__lambda * self.W)
+            errors.append(error)
+        self.__plot_error(errors)
 
-    def predict(self):
-        pass
-
-    def __sgd(self):
-        pass
+    def predict(self, X):
+        return np.dot(X, self.W)
 
     @classmethod
     def plot(cls, X, line_X, line_y):
@@ -32,6 +48,13 @@ class SVC(object):
                 plt.scatter(sample[0], sample[1], s=100, c='blue', marker='+', linewidths=3)
         plt.plot(line_X, line_y, color='k', linewidth=2)
         plt.show()
+
+    @staticmethod
+    def __plot_error(errors):
+        plt.plot(errors, '|')
+        plt.ylim(0.5, 1.5)
+        plt.axes().set_yticklabels([])
+        plt.xlabel('Epochs')
 
 
 if __name__ == '__main__':
