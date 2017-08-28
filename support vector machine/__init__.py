@@ -7,7 +7,7 @@
 """
 
 import numpy as np
-from matplotlib import pyplot as plt
+from svm import SupportVectorMachine
 
 # Define the data
 # Input [x, y, bias]
@@ -21,11 +21,6 @@ X = np.array([
 # Labels
 y = np.array([-1, -1, 1, 1, 1])
 
-for d, sample in enumerate(X):
-    if d < 2:
-        plt.scatter(sample[0], sample[1], marker='_', linewidths=5)
-    else:
-        plt.scatter(sample[0], sample[1], marker='+', linewidths=5)
-
-plt.plot([-2, 6], [6, 0.5])  # A toy decision boundary
-plt.show()
+svm = SupportVectorMachine()
+svm.fit(X, y, show_metric=True)
+svm.plot(X, show_hyperplane=True)

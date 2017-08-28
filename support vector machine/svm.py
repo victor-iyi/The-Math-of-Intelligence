@@ -10,43 +10,52 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-class SVC(object):
+class SupportVectorMachine(object):
     def __init__(self, learning_rate=1):
         self.W = None
         self.learning_rate = learning_rate
         self.__lambda = None
 
-    def fit(self, X, y, epochs=10000):
-        self.__lambda = 1 / epochs
+    def fit(self, X, y, epochs=100000, **kwargs):
         self.W = np.zeros(len(X[0]))
         # store misclassified points
         errors = []
         print('Training starting...')
         for epoch in range(1, epochs + 1):
             error = 0
+            self.__lambda = 1 / epoch
             for i, x in enumerate(X):
+                regularizer = -2 * self.__lambda * self.W
                 # noinspection PyTypeChecker
                 if (y[i] * np.dot(X[i], self.W)) < 1:
                     # Misclassified points
-                    self.W = self.W + self.learning_rate * (X[i] * y[i] + (-2 * self.__lambda * self.W))
+                    self.W = self.W + self.learning_rate * (X[i] * y[i] + regularizer)
                     error = 1
                 else:
                     # Correct classification
-                    self.W = self.W + self.learning_rate * (-2 * self.__lambda * self.W)
+                    self.W = self.W + self.learning_rate * regularizer
             errors.append(error)
-        self.__plot_error(errors)
+        if 'show_metric' in kwargs:
+            if kwargs['show_metric']:
+                self.__plot_error(errors)
 
     def predict(self, X):
         return np.dot(X, self.W)
 
-    @classmethod
-    def plot(cls, X, line_X, line_y):
+    def plot(self, X, **kwargs):
         for i, sample in enumerate(X):
             if i < 2:
-                plt.scatter(sample[0], sample[1], s=100, c='red', marker='_', linewidths=3)
+                plt.scatter(sample[0], sample[1], s=100, c='r', marker='_', linewidths=3)
             else:
-                plt.scatter(sample[0], sample[1], s=100, c='blue', marker='+', linewidths=3)
-        plt.plot(line_X, line_y, color='k', linewidth=2)
+                plt.scatter(sample[0], sample[1], s=100, c='b', marker='+', linewidths=3)
+        if 'show_hyperplane' in kwargs:
+            if kwargs['show_hyperplane']:
+                x2 = [self.W[0], self.W[1], -self.W[1], self.W[0]]
+                x3 = [self.W[0], self.W[1], self.W[1], -self.W[0]]
+                x2x3 = np.array([x2, x3])
+                x, y, u, v = zip(*x2x3)
+                ax = plt.gca()
+                ax.quiver(x, y, u, v, scale=1, color='k')
         plt.show()
 
     @staticmethod
@@ -55,6 +64,8 @@ class SVC(object):
         plt.ylim(0.5, 1.5)
         plt.axes().set_yticklabels([])
         plt.xlabel('Epochs')
+        plt.ylabel('Misclassified')
+        plt.show()
 
 
 if __name__ == '__main__':
@@ -69,6 +80,7 @@ if __name__ == '__main__':
     # Labels
     y = np.array([-1, -1, 1, 1, 1])
 
-    svm = SVC()
-    svm.fit(X, y)
-    svm.plot(X, [-2, 6], [6, 0.5])
+    svm = SupportVectorMachine()
+    svm.fit(X, y, show_metric=True)
+    svm.plot(X, show_hyperplane=True)
+    plt.show()
