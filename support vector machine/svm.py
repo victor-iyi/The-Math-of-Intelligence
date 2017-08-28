@@ -81,7 +81,6 @@ if __name__ == '__main__':
     # Labels
     y = np.array([-1, -1, 1, 1, 1])
 
-    svm = SupportVectorMachine()
-    svm.fit(X, y, show_metric=True)
-    svm.plot(X, show_hyperplane=True)
-    plt.show()
+    clf = SupportVectorMachine()
+    clf.fit(X, y, show_metric=True)
+    clf.plot(X, show_hyperplane=True)
