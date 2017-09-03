@@ -90,5 +90,5 @@ if __name__ == '__main__':
         [6, 7, -1],
     ])
     pred = clf.predict(X_pred)
-    print(pred)
+    print('Predictions:', pred)
     clf.plot(X, show_hyperplane=True)
