@@ -84,4 +84,11 @@ if __name__ == '__main__':
     # Support Vector Classifier
     clf = SupportVectorMachine()
     clf.fit(X, y, show_metric=True)
+    X_pred = np.array([
+        [8, 2, -1],
+        [4, 1, -1],
+        [6, 7, -1],
+    ])
+    pred = clf.predict(X_pred)
+    print(pred)
     clf.plot(X, show_hyperplane=True)
