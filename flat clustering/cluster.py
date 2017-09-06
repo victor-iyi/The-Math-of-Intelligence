@@ -13,27 +13,28 @@ from scipy.spatial.distance import euclidean
 class KMeans(object):
     def __init__(self, n_clusters=8, max_iter=300, tol=1e-3):
         self.cluster_centers_ = None
-        self.classes_ = None
+        self.classes = None
         self.n_clusters = n_clusters
         self.max_iter = max_iter
         self.tol = tol
 
     def fit(self, X):
         # !- Select first k data points as centroids
-        self.cluster_centers_ = np.array([X[i] for i in range(self.n_clusters)])
+        assert self.n_clusters < len(X)
+        self.cluster_centers_ = [X[i] for i in range(self.n_clusters)]
         # !- Optimization process
         for max_iter in range(self.max_iter):
-            self.classes_ = {}
+            self.classes = {}
             for i in range(self.n_clusters):
-                self.classes_[i] = []
+                self.classes[i] = []
             # !- Loop through all features and calculate distance
             for x in X:
                 label = self.predict(x)
-                self.classes_[label].append(x)
-            # print(self.classes_)
+                self.classes[label].append(x)
+            # print(self.classes)
             prev_cluster_centers = np.array(self.cluster_centers_)
             # !- Compute the mean of the classified data
-            self.cluster_centers_ = np.array([np.mean(self.classes_[label], axis=0) for label in self.classes_])
+            self.cluster_centers_ = np.array([np.mean(self.classes[label], axis=0) for label in self.classes])
             # !- Optimization
             optimized = False
             for _ in self.cluster_centers_:
@@ -56,7 +57,7 @@ class KMeans(object):
 
     @staticmethod
     def visualize(X, centroids=None, labels=None):
-        colors = ['r', 'g', 'b', 'c', 'y', 'm', 'k']
+        colors = 10*['r', 'g', 'b', 'c', 'y', 'm', 'k', 'gold', 'brown', 'gray']
         if labels:
             for i, x in enumerate(X):
                 plt.scatter(x[0], x[1], s=50, c=colors[labels[i]])
@@ -68,14 +69,12 @@ class KMeans(object):
 
 
 if __name__ == '__main__':
-    # X = np.array([
-    #     [1, 2], [8, 7], [3, 9], [2, 6], [4, 1], [7, 9],
-    #     [8, 8], [7, 7], [1, 7], [1, 8], [4, 2], [2.5, 3]
-    # ])
-    X = np.array([[1, 2], [3, 2], [2, 3], [3, 1], [6, 8], [8, 6], [7, 7], [8, 9], [9, 7], [8, 8]])
-    clf = KMeans(n_clusters=2)
+    X = np.array([
+        [1, 2], [8, 7], [3, 9], [2, 6], [4, 1], [7, 9],
+        [8, 8], [7, 7], [1, 7], [1, 8], [4, 2], [2.5, 3]
+    ])
+    # X = np.array([[1, 2], [3, 2], [2, 3], [3, 1], [6, 8], [8, 6], [7, 7], [8, 9], [9, 7], [8, 8]])
+    clf = KMeans(n_clusters=3)
     clf.fit(X)
     labels = [clf.predict(x) for x in X]
-    print('Labels', labels)
-    print('Centroids', clf.cluster_centers_)
     clf.visualize(X, clf.cluster_centers_, labels)
