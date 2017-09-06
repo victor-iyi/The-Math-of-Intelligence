@@ -7,6 +7,7 @@
 """
 from matplotlib import pyplot as plt
 
+
 class KMeans(object):
     def __init__(self, n_clusters=8, max_iter=300, tol=1e3):
         self.n_clusters = n_clusters

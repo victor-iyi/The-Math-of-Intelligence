@@ -9,6 +9,7 @@
 from sklearn.cluster import KMeans
 import numpy as np
 from matplotlib import pyplot as plt
+# from . import cluster
 
 
 def visualize(X, centroids, labels):
