@@ -5,6 +5,7 @@
   Created on 04 September, 2017 @ 9:55 PM.
   Copyright (c) 2017. Victor. All rights reserved.
 """
+import numpy as np
 from matplotlib import pyplot as plt
 
 
@@ -21,6 +22,16 @@ class KMeans(object):
         pass
 
     @staticmethod
-    def visualize(X):
-        plt.scatter(X[:, 0], X[:, 1], s=50)
+    def visualize(X, centroids, labels):
+        colors = ['r', 'g', 'b', 'c', 'y', 'm', 'k']
+        for i, x in enumerate(X):
+            plt.scatter(x[0], x[1], s=50, c=colors[labels[i]])
+        plt.scatter(centroids[:, 0], centroids[:, 1], s=70, marker='x', linewidth=3)
         plt.show()
+
+
+if __name__ == '__main__':
+    X = np.array([
+        [1, 2], [8, 7], [3, 9], [2, 6], [4, 1], [7, 9],
+        [8, 8], [7, 7], [1, 7], [1, 8], [4, 2], [2.5, 3]
+    ])
