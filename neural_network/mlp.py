@@ -11,30 +11,43 @@ import numpy as np
 
 class MultiLayerPerceptron(object):
     def __init__(self, layers=None, learning_rate=1e-3):
-        self.layers = layers if layers else []
+        self.hidden_layers = dict()
+        self.output_layer = dict()
+        self.activation = []
         self.n_layers = len(layers)
+        self.layers = layers if layers else []
         self.learning_rate = learning_rate
 
     def fit(self, X, y, n_iter=10000):
-        num_classes = len(y[0])
-        # !- Perform forward propagation
-        y_hat = self.forward_prop(X, num_classes)
-
-    def forward_prop(self, X, num_classes):
-        hidden_layers = dict()
+        # !- Randomly initialize weights
         for i, layer in enumerate(self.layers):
             prev = len(X[0]) if i == 0 else self.layers[i - 1]
-            hidden_layers[i] = dict()
-            hidden_layers[i]['weight'] = np.random.random([prev, layer])
-            # hidden_layers[i]['bias'] = np.random.random([self.layers])
-        output_layer = {'weight': np.random.random([self.layers[-1], num_classes])}
-        activation = list()
+            self.hidden_layers[i] = dict()
+            self.hidden_layers[i]['weight'] = 2 * np.random.random([prev, layer]) - 1
+        self.output_layer['weight'] = 2 * np.random.random([self.layers[-1], len(y[0])]) - 1
+        # !- Perform forward propagation
+        y_hat = self.forward_prop(X)
+        print(y_hat)
+
+    def forward_prop(self, X):
+
+        self.activation = []
         for n in range(self.n_layers):
-            x = activation[-1] if n > 0 else X
-            act = self.__sigmoid(np.dot(x, hidden_layers[n]['weight']))
-            activation.append(act)
-        y_hat = self.__sigmoid(np.dot(activation[-1], output_layer['weight']))
+            x = self.activation[-1] if n > 0 else X
+            act = self.__sigmoid(np.dot(x, self.hidden_layers[n]['weight']))
+            self.activation.append(act)
+        y_hat = self.__sigmoid(np.dot(self.activation[-1], self.output_layer['weight']))
         return y_hat
+
+    def backward_prop(self, X, y):
+        y_hat = self.forward_prop(X)
+        error = (y - y_hat) ** 2
+        for i in range(self.n_layers):
+            delta = np.multiply(error, self.__sigmoid(self.activation[i]))
+            gradient = np.dot(delta, self.hidden_layers[i]['weight'].T)
+            # !- Weight update
+            self.hidden_layers[i]['weight'] -= (gradient * self.learning_rate)
+            error = np.multiply(delta, self.__sigmoid(self.activation[i+1]))  # error for next layer
 
     @staticmethod
     def __sigmoid(X, derivative=False):
@@ -47,4 +60,3 @@ if __name__ == '__main__':
 
     clf = MultiLayerPerceptron([5, 4, 3])
     clf.fit(X, y)
-
