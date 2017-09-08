@@ -45,6 +45,7 @@ class MultiLayerPerceptron(object):
     def backwardProp(self, X, y):
         yHat = self.forwardProp(X)
         error = (y - yHat) ** 2
+        # TODO: Continue with back prop
         print(error)
 
     @staticmethod
