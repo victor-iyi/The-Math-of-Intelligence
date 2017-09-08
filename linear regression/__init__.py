@@ -7,10 +7,10 @@
 """
 
 # Create a LinearRegression object
-from regression import LinearRegression
+from .regression import LinearRegression
 import numpy as np
 
-data = np.genfromtxt('data.csv', delimiter=',')
+data = np.genfromtxt('../datasets/data.csv', delimiter=',')
 num_iter = 1000
 
 clf = LinearRegression(learning_rate=1e-4)

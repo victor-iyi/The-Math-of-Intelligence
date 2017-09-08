@@ -53,7 +53,7 @@ def gradient_descent(data, m_current, b_current, learning_rate):
 
 
 def start():
-    data = np.genfromtxt('data.csv', delimiter=',')
+    data = np.genfromtxt('../datasets/data.csv', delimiter=',')
     init_m = 0
     init_b = 0
     learning_rate = 1e-4
