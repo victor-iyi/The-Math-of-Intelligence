@@ -32,12 +32,12 @@ class MultiLayerPerceptron(object):
 
     def forwardProp(self, X):
         self.activation = []
-        self.logits = []
+        # self.logits = []
         for n in range(self.n_layers):
             x = self.activation[-1] if n > 0 else X
             logit = np.dot(x, self.hidden_layers[n]['weight'])
+            # self.logits.append(logit)
             act = self.__sigmoid(logit)
-            self.logits.append(logit)
             self.activation.append(act)
         y_hat = self.__sigmoid(np.dot(self.activation[-1], self.output_layer['weight']))
         return y_hat
