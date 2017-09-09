@@ -11,10 +11,8 @@ import numpy as np
 
 class MultiLayerPerceptron(object):
     def __init__(self, layers=None, learning_rate=1e-3):
-        self.logits = []
-        self.hidden_layers = dict()
-        self.output_layer = dict()
-        self.activation = []
+        self.__weights = []
+        self.__activation = []
         self.n_layers = len(layers)
         self.layers = layers if layers else []
         self.learning_rate = learning_rate
@@ -23,24 +21,23 @@ class MultiLayerPerceptron(object):
         # !- Randomly initialize weights
         for i, layer in enumerate(self.layers):
             prev = len(X[0]) if i == 0 else self.layers[i - 1]
-            self.hidden_layers[i] = dict()
-            self.hidden_layers[i]['weight'] = 2 * np.random.random([prev, layer]) - 1
-        self.output_layer['weight'] = 2 * np.random.random([self.layers[-1], len(y[0])]) - 1
+            weight = 2 * np.random.random([prev, layer]) - 1
+            self.__weights.append(weight)
+        # !- weights connecting to output layer
+        self.__weights.append(2 * np.random.random([self.layers[-1], len(y[0])]) - 1)
         # !- Perform forward propagation
-        for _ in range(n_iter)[:5]:
+        for _ in range(n_iter):
             self.backwardProp(X, y)
 
     def forwardProp(self, X):
-        self.activation = []
-        # self.logits = []
+        self.__activation = []
         for n in range(self.n_layers):
-            x = self.activation[-1] if n > 0 else X
-            logit = np.dot(x, self.hidden_layers[n]['weight'])
-            # self.logits.append(logit)
+            x = self.__activation[-1] if n > 0 else X
+            logit = np.dot(x, self.__weights[n])
             act = self.__sigmoid(logit)
-            self.activation.append(act)
-        y_hat = self.__sigmoid(np.dot(self.activation[-1], self.output_layer['weight']))
-        return y_hat
+            self.__activation.append(act)
+        yHat = self.__sigmoid(np.dot(self.__activation[-1], self.__weights[-1]))
+        return yHat
 
     def backwardProp(self, X, y):
         yHat = self.forwardProp(X)
