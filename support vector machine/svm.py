@@ -81,6 +81,17 @@ if __name__ == '__main__':
     # Labels
     y = np.array([-1, -1, 1, 1, 1])
 
+    # Input [x, y, bias]
+    # X = np.array([
+    #     [0, 0, 1],
+    #     [0, 1, 0],
+    #     [0, 1, 1],
+    #     [1, 0, 1],
+    #     [1, 1, 1],
+    # ])
+    # Labels
+    # y = np.array([[0], [0], [0], [1], [1]])
+
     # Support Vector Classifier
     clf = SupportVectorMachine()
     clf.fit(X, y, show_metric=True)
@@ -89,6 +100,10 @@ if __name__ == '__main__':
         [4, 1, -1],
         [6, 7, -1],
     ])
+    # X_pred = np.array([
+    #     [1, 1, 0],
+    #     [1, 0, 0],
+    # ])
     pred = clf.predict(X_pred)
     print('Predictions:', pred)
     clf.plot(X, show_hyperplane=True)
