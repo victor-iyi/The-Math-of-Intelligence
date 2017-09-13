@@ -6,15 +6,17 @@ A high level API that implements common *Machine Learning algorithms* from scrat
 
 > Available Machine Learning Algorithms include:
 
-+ Linear Regression
-+ Logistic Regression
-+ Support Vector Machine
-+ KMeans
-+ The Perceptron
-+ Multi-Layer Perceptron (n_layers)
-+ Convolutional Neural Network
+* Linear Regression
+* Logistic Regression
+* Support Vector Machine
+* KMeans
+* Self Organizing Map
+* The Perceptron
+* Multi-Layer Perceptron (n_layers)
+* Convolutional Neural Network
 
 > How to use
+
 ```python
 import numpy as np
 from sklearn.linear_model import LinearRegression
@@ -29,3 +31,19 @@ y_pred = clf.predict(np.array([[1, 1, 0]]))
 print('Prediction: {}'.format(y_pred))
 
 ```
+
+> Requirements
+
+Installing `numpy` using the Python Package Manager `pip`
+```
+pip install numpy
+```
+
+Installing `matplot` using the Python Package Manager `pip` to visualize data
+```
+pip install matplotlib
+```
+
+> Credits
+
+[Siraj Raval](https://www.youtube.com/channel/UCWN3xxRkmTPmbKwht9FuE5A)
