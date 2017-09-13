@@ -31,4 +31,27 @@ class SelfOrganizingMap(object):
         return np.sum((np.dstack((xi, yi)) - np.array(self.__bestMatchingUnit(vector))) ** 2, 2)
 
     def __hoodRadius(self, iteration):
-        return self.map_radius * math.exp(-iteration/self.t_const)
+        return self.map_radius * math.exp(-iteration / self.t_const)
+
+    def __trainRow(self, vector, i, dist_cut, dist):
+        hood_radius_2 = self.__hoodRadius(i) ** 2
+        bum_distance = self.__bumDistance(vector).astype('float64')
+        if dist is None:
+            temp = hood_radius_2 - bum_distance
+        else:
+            temp = dist ** 2 - bum_distance
+        influence = np.exp(-bum_distance / (2 * hood_radius_2))
+        if dist_cut:
+            influence *= ((np.sign(temp) + 1) / 2)
+        return np.expand_dims(influence, 2) * (vector - self.weights)
+
+    def fit(self, t_set, distance_cutoff=False, distance=None):
+        for i in range(self.t_iter):
+            for x in t_set:
+                self.weights += self.__trainRow(x, i, distance_cutoff, distance)
+
+
+if __name__ == '__main__':
+    t_set = np.random.randint(256, size=(15, 3))  # generate data
+    som = SelfOrganizingMap(200, 200, 3, 100, 0.1)  # init model
+    som.fit(t_set=t_set)
