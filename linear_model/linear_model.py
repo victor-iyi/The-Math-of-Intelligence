@@ -50,6 +50,7 @@ class LinearRegression:
         self.W = self.W - (self.learning_rate * W_gradient)
         self.b = self.b - (self.learning_rate * b_gradient)
 
+
 if __name__ == '__main__':
     X, y = np.genfromtxt('../datasets/data.csv', delimiter=',', unpack=True)
     X = X.reshape(-1, 1)
@@ -66,4 +67,3 @@ if __name__ == '__main__':
     # !- Evaluating the accuracy
     err = clf.error(X_test, y_test)
     print('Classification error = {:.02f}'.format(err))
-
