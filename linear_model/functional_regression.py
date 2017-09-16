@@ -71,10 +71,3 @@ def start():
 
 if __name__ == '__main__':
     start()
-"""
-  @author Victor I. Afolabi
-  A.I. Engineer & Software developer
-  javafolabi@gmail.com
-  Created on 26 August, 2017 @ 9:46 PM.
-  Copyright (c) 2017. victor. All rights reserved.
-"""
