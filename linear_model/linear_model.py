@@ -46,18 +46,7 @@ class LinearRegression:
 
 
 if __name__ == '__main__':
-    X = np.array([
-        [2104, 5, 1, 45],
-        [1416, 3, 2, 40],
-        [1534, 3, 2, 30],
-        [852, 2, 1, 36],
-    ])
-    y = np.array([[466], [232], [315], [172]])
-    X_pred = np.array([
-        [700, 1, 1, 30],
-        [1200, 3, 2, 35],
-        [2500, 7, 3, 42],
-    ])
+
     # !- Using the model
     clf = LinearRegression()
     clf.fit(X, y)

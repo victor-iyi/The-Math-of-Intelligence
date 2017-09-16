@@ -15,4 +15,4 @@ num_iter = 1000
 
 clf = LinearRegression(learning_rate=1e-4)
 clf.fit(data=data, num_iter=num_iter)
-print('After {:,} iterations. m = {:.2f} and b = {:.2f}'.format(num_iter, clf.m, clf.b))
+print('After {:,} iterations. m = {:.2f} and b = {:.2f}'.format(num_iter, clf.W, clf.b))
