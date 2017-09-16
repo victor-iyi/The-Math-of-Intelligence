@@ -27,6 +27,17 @@ class LinearRegression:
     def predict(self, x):
         return np.dot(x, self.W) + self.b
 
+    def error(self, X, y):
+        y_hat = np.array([self.predict(x) for x in X])
+        total_error = np.square(np.subtract(y, y_hat))
+        return np.mean(total_error)
+
+    """
+    def score(self, X, y, sample_weight=None):
+        from sklearn.metrics import accuracy_score
+        return accuracy_score(y, self.predict(X), sample_weight=sample_weight)
+    """
+
     def __cost(self, X, y):
         yHat = self.predict(X)
         J = 0.5 * np.sum((yHat - y) ** 2)
@@ -39,19 +50,28 @@ class LinearRegression:
         for i, _ in enumerate(X):
             x = X[i]
             y_ = y[i]
-            w_gradient += (self.predict(x) - y_) / m
+            w_gradient += ((self.predict(x) - y_) * -x) / m
             b_gradient += (self.predict(x) - y_) / m
         self.W = self.W - (self.learning_rate * w_gradient)
         self.b = self.b - (self.learning_rate * b_gradient)
 
 
 if __name__ == '__main__':
-
+    X, y = np.genfromtxt('../datasets/data.csv', delimiter=',', unpack=True)
+    X = X.reshape(-1, 1)
+    y = y.reshape(-1, 1)
+    print(X.shape, y.shape)
+    from sklearn.model_selection import train_test_split
+    X_train, X_test, y_train, y_test = train_test_split(X, y)
     # !- Using the model
     clf = LinearRegression()
-    clf.fit(X, y)
-    print(clf.predict(X_pred))
+    clf.fit(X_train, y_train)
+
+    acc = clf.error(X_test, y_test)
+    print('Accuracy = {:.02%}'.format(acc))
+
+    # y_pred = clf.predict(X_test)
+
     # !- Visualizing the model
-    plt.scatter(X[:, 0], y)
-    plt.plot(X_pred[:, 0], clf.predict(X_pred))
-    plt.show()
+    # plt.scatter(X[:, 0], y)
+    # plt.show()
