@@ -51,6 +51,8 @@ if __name__ == '__main__':
     clf.fit(X_train, y_train)
     y_pred = clf.predict(X_test)
     accuracy = clf.score(X_test, y_test)
+    # from sklearn.metrics import accuracy_score
+    # accuracy = accuracy_score(y_test, np.round(y_pred))
 
     # !- Log the results
     from pprint import pprint
