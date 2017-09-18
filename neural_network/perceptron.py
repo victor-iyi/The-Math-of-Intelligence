@@ -24,7 +24,7 @@ class Perceptron(object):
             self.W = self.W - (gradient * self.learning_rate)
 
     def predict(self, X):
-        return self.__sigmoid(np.dot(X, self.W))
+        return np.argmax(self.__sigmoid(np.dot(X, self.W)), axis=1)
 
     def score(self, X, y):
         y_hat = np.round(self.predict(X))
