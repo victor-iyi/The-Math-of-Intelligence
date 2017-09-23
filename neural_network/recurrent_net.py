@@ -32,3 +32,16 @@ vector_a[a_idx] = 1
 print('a is at index : {}'.format(a_idx))
 print(vector_a.ravel())
 """
+# Hyperparameters
+hidden_size = 100
+seq_len = 25
+learning_rate = 1e-1
+
+# Model parameters
+# weights
+Wxh = np.random.randn(hidden_size, vocab_size) * 0.01   # input > hidden
+Whh = np.random.randn(hidden_size, hidden_size) * 0.01  # hidden > hidden
+Wyh = np.random.randn(vocab_size, hidden_size) * 0.01   # hidden > output
+# biases
+bh = np.zeros((hidden_size, 1))
+by = np.zeros((vocab_size, 1))
