@@ -8,11 +8,15 @@
 
 book_name = r'../datasets/kafka.txt'
 
+# Load in the data
 data = open(book_name, 'r', encoding="utf-8").read()
 chars = list(set(data))
 
 # Data size and vocab size
 data_size = len(data)
 vocab_size = len(chars)
+print('data_size = {:,}\t vocab_size = {:,}\n'.format(data_size, vocab_size))
 
-print('data_size = {:,}\t vocab_size = {:,}'.format(data_size, vocab_size))
+# Char to index and index to char
+char_to_idx = {ch: i for i, ch in enumerate(data)}
+idx_to_char = {i: ch for i, ch in enumerate(data)}
