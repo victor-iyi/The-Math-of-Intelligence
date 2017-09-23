@@ -24,9 +24,11 @@ char_to_idx = {ch: i for i, ch in enumerate(chars)}
 idx_to_char = {i: ch for i, ch in enumerate(chars)}
 
 # Vectorize a
+"""
 vector_a = np.zeros(shape=(vocab_size, 1))
 a_idx = char_to_idx['a']
 vector_a[a_idx] = 1
 
 print('a is at index : {}'.format(a_idx))
 print(vector_a.ravel())
+"""
