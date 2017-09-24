@@ -5,21 +5,15 @@
   Created on 26 August, 2017 @ 10:33 PM.
   Copyright © 2017. victor. All rights reserved.
 """
-import numpy as np
-import svm
 
-# Define the data
-# Input [x, y, bias]
-X = np.array([
-    [-2, 4, -1],
-    [4, 1, -1],
-    [1, 6, -1],
-    [2, 4, -1],
-    [6, 2, -1]
-])
-# Labels
-y = np.array([-1, -1, 1, 1, 1])
+from .svm import SVC
 
-clf = svm.SupportVectorMachine()
-clf.fit(X, y, show_metric=True)
-clf.plot(X, show_hyperplane=True)
+
+"""
+The :mod:`support_vector_machine` module implements Support Vecotor Machine
+Classifier. It includes SVC
+"""
+
+__all__ = [
+    'SVC',
+]

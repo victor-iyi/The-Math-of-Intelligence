@@ -10,7 +10,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 
-class SupportVectorMachine(object):
+class SVC(object):
     def __init__(self, learning_rate=1):
         self.W = None
         self.learning_rate = learning_rate
@@ -93,7 +93,7 @@ if __name__ == '__main__':
     # y = np.array([[0], [0], [0], [1], [1]])
 
     # Support Vector Classifier
-    clf = SupportVectorMachine()
+    clf = SVC()
     clf.fit(X, y, show_metric=True)
     X_pred = np.array([
         [8, 2, -1],
