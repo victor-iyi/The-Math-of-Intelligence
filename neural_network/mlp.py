@@ -6,6 +6,7 @@
   Copyright (c) 2017. Victor. All rights reserved.
 """
 import sys
+
 import numpy as np
 
 
@@ -57,10 +58,10 @@ class MultiLayerPerceptron(object):
             #     error = np.dot(delta, self.__weights[n].T)
             #     delta = error * self.__sigmoid(self.__activation[n-1], derivative=True)
             print(n)
-            error = np.square(y - yHat) if n == self.n_layers-1 else np.dot(delta, self.__weights[n+1].T)
+            error = np.square(y - yHat) if n == self.n_layers - 1 else np.dot(delta, self.__weights[n + 1].T)
             # delta = error * self.__sigmoid(self.__activation[n], derivative=True)
-            delta = error * self.__sigmoid(yHat) if n == self.n_layers-1 else error * self.__sigmoid(self.__activation[
-                                                                                                     n+1], derivative=True)
+            delta = error * self.__sigmoid(yHat) if n == self.n_layers - 1 else error * self.__sigmoid(
+                self.__activation[n + 1], derivative=True)
             deltas.append(delta)
         # print('Train deltas:', [d.shape for d in deltas])
         return error, deltas
@@ -71,8 +72,8 @@ class MultiLayerPerceptron(object):
         print('Activations:', len(self.__activation), [a.T.shape for a in self.__activation])
         print('deltas:', len(deltas), [d.shape for d in deltas])
         for i, _ in enumerate(self.__weights):
-            layer = X if i == 0 else self.__activation[i-1]
-            print(i, self.__weights[i].shape, layer.T.shape, deltas[i+1].shape)
+            layer = X if i == 0 else self.__activation[i - 1]
+            print(i, self.__weights[i].shape, layer.T.shape, deltas[i + 1].shape)
             self.__weights[i] += np.dot(layer.T, deltas[i])
 
     @staticmethod
