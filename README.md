@@ -19,7 +19,7 @@ A high level API that implements common *Machine Learning algorithms* from scrat
 
 ```python
 import numpy as np
-from sklearn.linear_model import LinearRegression
+from linear_model import LinearRegression
 
 X = np.array([[0, 0, 1], [0, 1, 0], [1, 0, 0], [1, 0, 1]])
 y = np.array([[0], [0], [1], [1]])
